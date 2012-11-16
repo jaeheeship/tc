@@ -1,0 +1,45 @@
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed') ; 
+
+class Admin_mgr extends MX_Controller { 
+    var $layout = array() ; 
+
+    public function __construct(){
+        $layout['header'] = 'header'; 
+        $layout['body'] = ''; 
+        $layout['footer'] = 'footer'; 
+    }
+
+    public function index(){ 
+        $this->load->view('header') ; 
+    }
+
+    public function setupDatabaseTable(){
+        $this->load->helper('directory') ; 
+        $map = directory_map('./modules',2); 
+
+        $map ; 
+    }
+
+    public function getLayout(){
+        $layout = array() ; 
+
+        $header = $this->load->view('header','',true) ; 
+        $footer = $this->load->view('footer','',true) ; 
+
+        $layout['header'] = $header ;
+        $layout['body'] = 'adf' ;
+        $layout['footer'] = $footer ;
+        
+        return $layout ; 
+    }
+   
+    public function save(){ 
+
+    } 
+
+    public function remove(){ 
+
+    } 
+} 
+/* End of file admin.php */
+/* Location : ./modules/admin/admin.php */

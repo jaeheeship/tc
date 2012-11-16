@@ -1,0 +1,63 @@
+#selectable .ui-selecting { background: #FECA40; }
+#selectable .ui-selected { background: #F39814; color: white; }
+#selectable { list-style-type: none;}
+#selectable li { float:left;height:100%; width:23%;}
+.replace { height: 130px; line-height: 12em;  width: 13%;}
+/*
+#content_body {
+float: left;
+width : 1350px;
+
+}
+.input-xxlarge {
+    width: 900px;
+  font-size:15px;
+}
+#content_area {
+width : 900px;
+height : 600px;
+float : left;
+background-color : yellow;
+}
+.paragraphWep {
+ border: solid 1px yellow;
+float :  left;
+position: relative;
+}
+.paragraph {
+word-break: break-all;
+width: 850px;
+float: left;
+ border: solid 1px black;
+}
+.removeParagraphBtn { 
+float : left;
+}
+.well {
+width: 850px;
+}
+#textArea {
+}
+#toggler { 
+width: 450px;
+height : 600px;
+background-color : green;
+float : left;
+}
+.imgThumbnail {
+    float : left;
+    margin : 2px;
+    border: 1px solid blue;
+}
+.seleteImg { 
+clear : both;
+margin: 0 auto;
+}
+*/
+.element {position:relative;padding-left:20px;}
+.highlight {}
+.element .handler { width: 14px; height:100%; ;position:absolute;left:0;right:0;top:0;bottom:0; }
+.highlight .handler { background:yellow;}
+
+.twitarea { padding:10px; margin:10px; border-radius :5px; border:1px solid #ccc; }
+.twitarea ul { padding:0px; margin:0px; list-style:none; }
