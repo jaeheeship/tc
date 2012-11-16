@@ -15,21 +15,23 @@ class OAuthUtil {
 		$params = explode('&', trim($params));
 
 		$ret = array();
-
-		foreach ($params as $param) {
-			list($key, $value) = explode('=', $param, 2);
-			$ret[$key] = $value ;
-		}
+        if(count($params) >0){ 
+			foreach ($params as $param) {
+				@list($key, $value) = explode('=', $param, 2);
+				@$ret[$key] = $value ;
+			}
+        }
 		return $ret;
 	}
 
 	public static function call($url,$method,$param,$request_body=array()){
 		$header = OAuthUtil::parse_header($param);
 
-		$ch = curl_init($url);
 
 		$method=='POST' ? $options[CURLOPT_POST]=TRUE : '' ;
-		$method=='POST' ? $options[CURLOPT_POSTFIELDS]= http_build_query($request_body): '' ;
+		$method=='POST' ? $options[CURLOPT_POSTFIELDS]= http_build_query($request_body): $url=($url.'?'.http_build_query($request_body)) ;
+
+		$ch = curl_init($url);
 
 		$options[CURLOPT_HTTPHEADER] = array(
 				'Authorization: ' . $header

@@ -13,7 +13,11 @@ class Oauth {
 		$secret_key = $config['secret_key'] ;
 		$callback_url = $config['callback_url'] ;
 		$provider = $config['provider'] ;
-		$signature_method = $config['signature_method'] ;
+        if(!$config['oauth_version']=='2.0'){
+		    $signature_method = $config['signature_method'] ;
+        }else{
+            $signature_method ='none';
+        }
 
 		include_once('oauth/Consumer.php') ;
 		include_once('oauth/provider/Provider_Factory.php') ;
