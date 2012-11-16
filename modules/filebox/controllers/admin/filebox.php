@@ -121,6 +121,7 @@ class Filebox extends MX_Controller {
 		thumbImage('filebox',$ret_data->file_srl,$ret_data->full_path,700,460) ;
 		thumbImage('filebox',$ret_data->file_srl,$ret_data->full_path,300,200) ;
 
+
 		return json_encode(array($ret));
 	}
 

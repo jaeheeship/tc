@@ -22,13 +22,13 @@ var base_url = '<?=base_url();?>' ;
 				<a class="brand" style="color: #ddd; font-weight: bold;"> <span style="color:#898989;">Saegeul</span> <small>for social curation</small>
 				</a>
 				<ul class="nav"> 
-			        <li <?php if($this->uri->segment(2)=='member'):?> class="active"
+			        <!--<li <?php if($this->uri->segment(2)=='member'):?> class="active"
 					<?php endif;?>><a
 						href="<?=base_url()?>admin/member/admin_member">Member </a>
-					</li>
-					<li <?php if($this->uri->segment(2)=='document'):?> class="active"
+					</li>-->
+					<li <?php if($this->uri->segment(2)=='gallery'):?> class="active"
 					<?php endif;?>><a
-						href="<?=base_url()?>admin/document/document_list">Gallery</a>
+						href="<?=base_url()?>admin/gallery/gallery_list">Gallery</a>
 					</li>
 					<li <?php if($this->uri->segment(2)=='clouddrive'):?> class="active"
 					<?php endif;?>><a

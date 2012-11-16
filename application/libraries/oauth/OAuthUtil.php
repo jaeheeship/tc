@@ -5,7 +5,7 @@ class OAuthUtil {
 		$header = array()  ;
 
 		foreach($param as $key => $value){
-			$header[]=OAuthUtil::urlencode($key).':"'.OAuthUtil::urlencode($value).'"';
+			$header[]=$key.':'.$value;
 		}
 
 		return $header ;
@@ -26,17 +26,17 @@ class OAuthUtil {
 	
 	public static function new_call($url,$method,$param,$request_body=array()){
 		$header = OAuthUtil::parse_header($param);
+        $header[] = 'Accept:application/json'; 
 	
 	
 		$method=='POST' ? $options[CURLOPT_POST]=TRUE : '' ;
 		$method=='POST' ? $options[CURLOPT_POSTFIELDS]= http_build_query($request_body): $url=($url.'?'.http_build_query($request_body)) ;
 	
 		$ch = curl_init($url);
-	print_r($header) ;
 		$options[CURLOPT_HTTPHEADER] = $header ; 	
 		$options[CURLOPT_SSL_VERIFYPEER] = FALSE ;
 		$options[CURLOPT_SSL_VERIFYHOST] = FALSE ;
-		$options[CURLOPT_RETURNTRANSFER] = TRUE ;
+		$options[CURLOPT_RETURNTRANSFER] = TRUE ; 
 	
 		if ( ! curl_setopt_array($ch, $options)) {
 			throw new Exception('Failed to set CURL options, check CURL documentation: http://php.net/curl_setopt_array');

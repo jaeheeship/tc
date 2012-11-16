@@ -27,7 +27,7 @@ class Tcloud extends MX_Controller {
 		$param = array() ;
 		$param['response_type'] = 'code' ;
 		$param['scope'] = 'tcloud' ;
-		$param['redirect_uri'] = base_url().'admin/tcloud/callback2' ;
+		$param['redirect_uri'] = base_url().'admin/tcloud/callback' ;
 		$param['client_id'] = $this->app_id ;
 
 		$this->oauth->authorize($param) ;
@@ -42,13 +42,13 @@ class Tcloud extends MX_Controller {
 
 	}
 
-	function callback2(){
+	function callback(){
 		$param = array() ;
 		$param['client_id'] = $this->app_id ;
 		$param['client_secret'] = $this->secret_key ;
 		$param['code'] = $this->input->get_post('code') ;
 		$param['scope'] = 'tcloud' ;
-		$param['redirect_uri'] = base_url().'admin/tcloud/callback2' ;
+		$param['redirect_uri'] = base_url().'admin/tcloud/callback' ;
 		$param['grant_type'] = 'authorization_code';
 
 		$t= $this->oauth->access_token($param) ;

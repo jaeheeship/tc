@@ -34,8 +34,36 @@ class Gallery extends MX_Controller {
     
     	$this->sg_layout->show($data) ;
     }
-    
 
+    public function gallery_list(){
+        $data['action'] = 'gallery_list';
+    
+    	$this->load->library('sg_layout');
+    	$this->sg_layout->layout('admin/layout');
+    	$this->sg_layout->module('gallery');
+    
+    	$this->sg_layout->add('admin/header');
+    	$this->sg_layout->add('admin/sidebar');
+    	$this->sg_layout->add('admin/gallery_list');
+    	$this->sg_layout->add('admin/footer');
+    
+    	$this->sg_layout->show($data) ;
+    }
+
+    public function make_gallery(){
+        $data['action'] = 'gallery';
+    
+    	$this->load->library('sg_layout');
+    	$this->sg_layout->layout('admin/layout');
+    	$this->sg_layout->module('gallery');
+    
+    	$this->sg_layout->add('admin/header');
+    	$this->sg_layout->add('admin/sidebar');
+    	$this->sg_layout->add('admin/make_gallery');
+    	$this->sg_layout->add('admin/footer');
+    
+    	$this->sg_layout->show($data) ;
+    } 
 } 
 /* End of file admin.php */
 /* Location : ./modules/admin/admin.php */
