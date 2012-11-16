@@ -19,27 +19,8 @@ class Provider_Tcloud extends Provider {
 	}
 
 	function _getAPIUrl($api_name){
-		$url_prefix = 'https://openapi.ucloud.com/ucloud/api/1.0/';
-
-		$url = $url_prefix.'ucloud/basic/getuserinfo.json' ;
-		if($api_name == 'getUserInfo'){
-			$url = $url_prefix.'ucloud/basic/getuserinfo.json' ;
-		}else if($api_name == 'getContents'){
-			$url = $url_prefix.'ucloud/basic/getContents.json' ;
-		}else if($api_name == 'createfiletoken'){
-			$url = $url_prefix.'ucloud/basic/createfiletoken.json' ;
-		}else if($api_name == 'getsyncfolder'){
-			$url = $url_prefix.'ucloud/basic/getsyncfolder.json' ;
-		}else if($api_name == 'createfile'){
-			$url = $url_prefix.'ucloud/basic/createfile.json' ;
-		}else if($api_name == 'createfiletoken'){
-			$url = $url_prefix.'ucloud/basic/createfiletoken.json' ;
-		}else if($api_name == 'deletefile'){
-			$url = $url_prefix.'ucloud/basic/deletefile.json' ;
-		}else if($api_name == 'createfolder'){
-			$url = $url_prefix.'ucloud/basic/createfolder.json' ;
-		}else if($api_name == 'deletefolder'){
-			$url = $url_prefix.'ucloud/basic/deletefolder.json' ;
+		if($api_name == 'getImageList'){
+			$url = 'https://apis.skplanetx.com/tcloud/images' ;
 		}
 
 		return $url ;
@@ -50,26 +31,8 @@ class Provider_Tcloud extends Provider {
 		$url = $this->_getAPIUrl($api_name);
 		get_instance()->load->helper('string');
 
-		//$param['oauth_callback'] = $consumer->get('callback_url') ;
-		$param['oauth_consumer_key'] = $consumer->get('api_key') ;
-		//         $param['api_token'] = $request_body['api_token'] ;
-		$param['oauth_nonce'] = random_string('alnum', 32);
-		$param['oauth_signature_method'] = $this->getSignatureMethod() ;
-		$param['oauth_timestamp'] = time();
-		$param['oauth_token'] =  $request_header['oauth_token'];
-		$param['oauth_version'] =  $this->getOAuthVersion() ;
-		//$param['oauth_verifier'] =  $request_header['oauth_verifier'];
-
-		$base_string = OAuthUtil::base_string($method,$url,$param=array_merge($param,$request_body)) ;
-		$key_arr = array(($consumer->get('secret_key')),($request_header['oauth_token_secret']))  ;
-
-
-		$key = OAuthUtil::urlencode($key_arr) ;
-		$key = implode('&',$key_arr) ;
-
-		$param['oauth_signature'] = OAuthUtil::make_signature($base_string,$key) ;
-
-		$response = OAuthUtil::call($url,$method,$param,$request_body) ;
+		
+		$response = OAuthUtil::new_call($url,$method,$request_header,$request_body) ;
 
 		return $response ;
 	}

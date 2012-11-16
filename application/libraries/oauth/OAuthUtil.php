@@ -5,10 +5,10 @@ class OAuthUtil {
 		$header = array()  ;
 
 		foreach($param as $key => $value){
-			$header[]=OAuthUtil::urlencode($key).'="'.OAuthUtil::urlencode($value).'"';
+			$header[]=OAuthUtil::urlencode($key).':"'.OAuthUtil::urlencode($value).'"';
 		}
 
-		return 'OAuth '.implode(',',$header) ;
+		return $header ;
 	}
 
 	public static function parse_param($params){
@@ -22,6 +22,44 @@ class OAuthUtil {
 			}
         }
 		return $ret;
+	}
+	
+	public static function new_call($url,$method,$param,$request_body=array()){
+		$header = OAuthUtil::parse_header($param);
+	
+	
+		$method=='POST' ? $options[CURLOPT_POST]=TRUE : '' ;
+		$method=='POST' ? $options[CURLOPT_POSTFIELDS]= http_build_query($request_body): $url=($url.'?'.http_build_query($request_body)) ;
+	
+		$ch = curl_init($url);
+	print_r($header) ;
+		$options[CURLOPT_HTTPHEADER] = $header ; 	
+		$options[CURLOPT_SSL_VERIFYPEER] = FALSE ;
+		$options[CURLOPT_SSL_VERIFYHOST] = FALSE ;
+		$options[CURLOPT_RETURNTRANSFER] = TRUE ;
+	
+		if ( ! curl_setopt_array($ch, $options)) {
+			throw new Exception('Failed to set CURL options, check CURL documentation: http://php.net/curl_setopt_array');
+		}
+	
+		$response = curl_exec($ch);
+	
+		// Get the response information
+		$code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+	
+		if ($code AND ($code < 200 OR $code > 299)) {
+			$error = $response;
+		}
+		elseif ($response === FALSE) {
+			$error = curl_error($ch);
+		}
+		curl_close($ch);
+	
+		if (isset($error)) {
+			throw new Exception(sprintf('Error fetching remote %s [ status %s ] %s', $url, $code, $error));
+		}
+	
+		return $response;
 	}
 
 	public static function call($url,$method,$param,$request_body=array()){
